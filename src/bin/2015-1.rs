@@ -1,3 +1,6 @@
+use advent_of_code::run_on_challenge_input;
+
+#[allow(unused)]
 fn part_one(input: &str) -> i32 {
     let mut ret = 0i32;
 
@@ -12,6 +15,7 @@ fn part_one(input: &str) -> i32 {
     ret
 }
 
+#[allow(unused)]
 fn part_two(input: &str) -> i32 {
     let mut index = 1i32;
     let mut floor = 0i32;
@@ -36,7 +40,7 @@ fn part_two(input: &str) -> i32 {
 pub fn main() {
     let mut floor = 0i32;
     
-    advent_of_code::run_on_challenge_input(2015, 1, |line| {
+    run_on_challenge_input(2015, 1, |line| {
         floor = part_two(line);
     });
 

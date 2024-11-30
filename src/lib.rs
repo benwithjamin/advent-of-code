@@ -1,7 +1,6 @@
 use std::{
     fs::File,
-    io::{copy, BufRead, BufReader, Lines, Read, Write},
-    net::TcpStream,
+    io::{copy, BufRead, BufReader, Lines},
     path::Path,
 };
 
@@ -70,7 +69,7 @@ fn fetch_challenge_input(
 
     if response.status().is_success() {
         let mut file = File::create(&get_input_file(year, day))?;
-        let mut content = response.bytes()?;
+        let content = response.bytes()?;
 
         copy(&mut content.as_ref(), &mut file)?;
     } else {

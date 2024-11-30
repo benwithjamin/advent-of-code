@@ -17,10 +17,12 @@
         "body": [
             "use advent_of_code::run_on_challenge_input;",
             "",
+            "#[allow(unused)]",
             "fn part_one(value: impl Into<String>) {",
             "    println!(\"line is {}\", value.into());",
             "}",
             "",
+            "#[allow(unused)]",
             "fn part_two(value: impl Into<String>) {",
             "    println!(\"line is {}\", value.into());",
             "}",
