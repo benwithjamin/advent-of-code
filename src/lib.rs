@@ -84,3 +84,25 @@ fn fetch_challenge_input(
 
     Ok(())
 }
+
+pub mod utils {
+    use regex::Regex;
+
+    pub fn split_keep<'a>(r: &Regex, text: &'a str) -> Vec<&'a str> {
+        let mut result = Vec::new();
+        let mut last = 0;
+        for m in r.find_iter(text) {
+            if last != m.start() {
+                result.push(&text[last..m.start()]);
+            }
+            result.push(m.as_str());
+            last = m.start() + m.len();
+        }
+        
+        if last < text.len() {
+            result.push(&text[last..]);
+        }
+    
+        result
+    }
+}
