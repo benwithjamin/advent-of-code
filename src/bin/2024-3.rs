@@ -1,4 +1,4 @@
-use advent_of_code::{run_on_challenge_input, utils::split_keep};
+use advent_of_code::{run_on_challenge_input_lines, utils::split_keep};
 use regex::Regex;
 
 fn sum_uncorrupted_instructions(line: &str) -> u64 {
@@ -38,7 +38,7 @@ fn sum_uncorrupted_enabled_instructions(line: &str, enabled: &mut bool) -> u64 {
 fn part_one() {
     let mut total: u64 = 0;
 
-    run_on_challenge_input(2024, 3, |line| {
+    run_on_challenge_input_lines(2024, 3, |line| {
         total += sum_uncorrupted_instructions(line);
     });
 
@@ -49,7 +49,7 @@ fn part_two() {
     let mut total: u64 = 0;
     let mut enabled = true;
 
-    run_on_challenge_input(2024, 3, |line| {
+    run_on_challenge_input_lines(2024, 3, |line| {
         total += sum_uncorrupted_enabled_instructions(line, &mut enabled);
     });
 

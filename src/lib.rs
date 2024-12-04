@@ -1,17 +1,57 @@
 use std::{
     fs::File,
     io::{copy, BufRead, BufReader, Lines},
-    path::Path,
+    path::{Path, PathBuf},
 };
 
 use reqwest::blocking::Client;
 
-pub fn run_on_challenge_input<F>(year: u32, day: u32, mut func: F)
+pub fn run_on_challenge_input_lines_ttb<F>(year: u64, day: u64, mut func: F)
 where
     F: FnMut(&str),
 {
-    let input_file = get_input_file(year, day);
+    let resolved_path = get_input_file(year, day);
 
+    match read_challenge_input(&resolved_path) {
+        Ok(lines) => {
+            let input_characters: Vec<Vec<char>> = lines
+                .filter_map(Result::ok)
+                .map(|line| line.chars().collect())
+                .collect();
+
+            let rows = input_characters.len();
+            let columns = input_characters[0].len();
+
+            let transposed_characters: Vec<Vec<char>> = (0..columns)
+                .map(|column| (0..rows).map(|row| input_characters[row][column]).collect())
+                .collect();
+
+            for line in transposed_characters.iter() {
+                func(&line.iter().collect::<String>());
+            }
+        }
+        Err(error) => println!("Error reading challenge input: {}", error),
+    }
+}
+
+pub fn run_on_challenge_input_lines<F>(year: u64, day: u64, mut func: F)
+where
+    F: FnMut(&str),
+{
+    let resolved_path = get_input_file(year, day);
+
+    match read_challenge_input(&resolved_path) {
+        Ok(lines) => {
+            for line in lines.flatten() {
+                func(&line);
+            }
+        }
+        Err(error) => println!("Error reading challenge input: {}", error),
+    }
+}
+
+fn get_input_file(year: u64, day: u64) -> PathBuf {
+    let input_file = format!("input/{}-{}.txt", year, day);
     let path = Path::new(&input_file);
     let working_directory = std::env::current_dir().expect("Error getting current directory");
 
@@ -24,20 +64,7 @@ where
         }
     }
 
-    match read_challenge_input(&resolved_path) {
-        Ok(lines) => {
-            for line in lines.flatten() {
-                func(&line);
-            }
-        }
-        Err(error) => {
-            println!("Error reading challenge input: {}", error)
-        }
-    }
-}
-
-fn get_input_file(year: u32, day: u32) -> String {
-    format!("input/{}-{}.txt", year, day)
+    resolved_path
 }
 
 fn read_challenge_input<P>(filename: P) -> std::io::Result<Lines<BufReader<File>>>
@@ -49,8 +76,8 @@ where
 }
 
 fn fetch_challenge_input(
-    year: u32,
-    day: u32,
+    year: u64,
+    day: u64,
 ) -> std::result::Result<(), Box<dyn std::error::Error>> {
     use dotenv::dotenv;
 
@@ -59,7 +86,7 @@ fn fetch_challenge_input(
     let session_cookie = std::env::var("SESSION_COOKIE").expect("SESSION_COOKIE must be set");
 
     let url = format!("https://adventofcode.com/{}/day/{}/input", year, day);
-    println!("{}", url);
+    println!("Downloading challenge input...");
 
     let client = Client::new();
     let response = client.get(url)
@@ -68,7 +95,7 @@ fn fetch_challenge_input(
         .send()?;
 
     if response.status().is_success() {
-        let mut file = File::create(&get_input_file(year, day))?;
+        let mut file = File::create(&format!("input/{}-{}.txt", year, day))?;
         let content = response.bytes()?;
 
         copy(&mut content.as_ref(), &mut file)?;
@@ -98,11 +125,11 @@ pub mod utils {
             result.push(m.as_str());
             last = m.start() + m.len();
         }
-        
+
         if last < text.len() {
             result.push(&text[last..]);
         }
-    
+
         result
     }
 }

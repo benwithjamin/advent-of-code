@@ -1,4 +1,4 @@
-use advent_of_code::run_on_challenge_input;
+use advent_of_code::run_on_challenge_input_lines;
 use regex::Regex;
 
 fn part_one() {
@@ -7,7 +7,7 @@ fn part_one() {
 
     let regex = Regex::new(r"(\d{5})\s+(\d{5})").unwrap();
 
-    run_on_challenge_input(2024, 1, |line| {
+    run_on_challenge_input_lines(2024, 1, |line| {
         let captures = regex.captures(line).unwrap();
         left.push(captures.get(1).unwrap().as_str().parse::<u64>().unwrap());
         right.push(captures.get(2).unwrap().as_str().parse::<u64>().unwrap());
@@ -31,7 +31,7 @@ fn part_two() {
 
     let regex = Regex::new(r"(\d{5})\s+(\d{5})").unwrap();
 
-    run_on_challenge_input(2024, 1, |line| {
+    run_on_challenge_input_lines(2024, 1, |line| {
         let captures = regex.captures(line).unwrap();
         left.push(captures.get(1).unwrap().as_str().parse::<u64>().unwrap());
         right.push(captures.get(2).unwrap().as_str().parse::<u64>().unwrap());

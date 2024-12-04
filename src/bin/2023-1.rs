@@ -1,4 +1,4 @@
-use advent_of_code::run_on_challenge_input;
+use advent_of_code::run_on_challenge_input_lines;
 
 fn part_one(value: impl Into<String>) -> u64 {
     let mut ret: (u64, u64) = (0, 0);
@@ -25,7 +25,7 @@ fn part_one(value: impl Into<String>) -> u64 {
 pub fn main() {
     let mut calibration_total: u64 = 0;
 
-    run_on_challenge_input(2023, 1, |line| {
+    run_on_challenge_input_lines(2023, 1, |line| {
         calibration_total += part_one(line);
     });
 

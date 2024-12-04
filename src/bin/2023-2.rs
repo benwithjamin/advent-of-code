@@ -1,6 +1,6 @@
 use std::fmt::Debug;
 
-use advent_of_code::run_on_challenge_input;
+use advent_of_code::run_on_challenge_input_lines;
 use regex::Regex;
 
 struct Game {
@@ -80,7 +80,7 @@ pub fn main() {
     let mut valid_games: Vec<u64> = vec![];
     let mut game_index = 1;
 
-    run_on_challenge_input(2023, 2, |line| {
+    run_on_challenge_input_lines(2023, 2, |line| {
         if part_one(line) {
             valid_games.push(game_index);
         }
@@ -93,7 +93,7 @@ pub fn main() {
 
     let mut game_powers = 0;
 
-    run_on_challenge_input(2023, 2, |line| {
+    run_on_challenge_input_lines(2023, 2, |line| {
         game_powers += part_two(line);
     });
 

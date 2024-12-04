@@ -1,4 +1,4 @@
-use advent_of_code::run_on_challenge_input;
+use advent_of_code::run_on_challenge_input_lines;
 
 fn are_levels_safe(levels: Vec<i64>) -> bool {
     match levels[0] - levels[levels.len() - 1] {
@@ -43,7 +43,7 @@ fn is_report_safe_with_problem_dampener(line: &str) -> bool {
 fn part_one() {
     let mut safe_levels: u64 = 0;
 
-    run_on_challenge_input(2024, 2, |line| {
+    run_on_challenge_input_lines(2024, 2, |line| {
         if is_report_safe(&line) {
             safe_levels += 1;
         }
@@ -55,7 +55,7 @@ fn part_one() {
 fn part_two() {
     let mut safe_levels: u64 = 0;
 
-    run_on_challenge_input(2024, 2, |line| {
+    run_on_challenge_input_lines(2024, 2, |line| {
         if is_report_safe_with_problem_dampener(&line) {
             safe_levels += 1;
         }
