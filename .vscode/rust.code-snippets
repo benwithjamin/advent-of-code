@@ -39,7 +39,21 @@
             "    part_one();",
             "    part_two();",
             "}",
-            ""
+            "",
+            "",
+            "mod tests {",
+            "    use super::*;",
+            "",
+            "    #[test]",
+            "    fn part_one() {",
+            "",
+            "    }",
+            "",
+            "    #[test]",
+            "    fn part_two() {",
+            "",
+            "    }",
+            "}"
         ],
         "description": "New Advent of Code boilerplate"
     }

@@ -1,10 +1,20 @@
 use std::{
     fs::File,
-    io::{copy, BufRead, BufReader, Lines},
+    io::{copy, BufRead, BufReader, Lines, Read},
     path::{Path, PathBuf},
 };
 
 use reqwest::blocking::Client;
+
+pub fn get_challenge_input_as_str(year: u64, day: u64) -> std::io::Result<String> {
+    let resolved_path = get_input_file(year, day);
+
+    let mut file = File::open(resolved_path)?;
+    let mut buffer: String = String::new();
+    file.read_to_string(&mut buffer)?;
+
+    Ok(buffer)
+}
 
 pub fn run_on_challenge_input_lines_ttb<F>(year: u64, day: u64, mut func: F)
 where
