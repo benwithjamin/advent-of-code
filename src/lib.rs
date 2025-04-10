@@ -1,3 +1,5 @@
+pub mod maps;
+
 use std::{
     fs::File,
     io::{copy, BufRead, BufReader, Lines, Read},

@@ -87,7 +87,7 @@ fn can_solve(equation: &CalibrationEquation) -> bool {
             match operator_combination[i] {
                 Operator::Plus => total += equation.input_numbers[i],
                 Operator::Multiply => total *= equation.input_numbers[i],
-                _ => {},
+                _ => {}
             }
         }
 
@@ -100,7 +100,8 @@ fn can_solve(equation: &CalibrationEquation) -> bool {
 }
 
 fn can_solve_with_concatenation(equation: &CalibrationEquation) -> bool {
-    for operator_combination in plus_multiply_concatenate_combinations(equation.input_numbers.len()) {
+    for operator_combination in plus_multiply_concatenate_combinations(equation.input_numbers.len())
+    {
         let mut total: u64 = equation.input_numbers[0];
 
         for i in 1..equation.input_numbers.len() {
@@ -110,7 +111,11 @@ fn can_solve_with_concatenation(equation: &CalibrationEquation) -> bool {
             match operator_combination[i] {
                 Operator::Plus => total += equation.input_numbers[i],
                 Operator::Multiply => total *= equation.input_numbers[i],
-                Operator::Concatenate => total = format!("{}{}", total, equation.input_numbers[i]).parse::<u64>().unwrap(),
+                Operator::Concatenate => {
+                    total = format!("{}{}", total, equation.input_numbers[i])
+                        .parse::<u64>()
+                        .unwrap()
+                }
             }
         }
 

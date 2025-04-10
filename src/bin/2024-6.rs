@@ -56,18 +56,18 @@ fn parse_map(map: &str) -> Result<Map, String> {
     })
 }
 
-fn predict_guard_movements(map: &Map) -> HashSet<(i32, i32)> {
-    let mut position = map.guard;
-    let mut direction = (0, -1);
-    let mut visited: HashSet<(i32, i32)> =
-        HashSet::with_capacity((map.width * map.height) as usize);
+// fn predict_guard_movements(map: &Map) -> HashSet<(i32, i32)> {
+//     let mut position = map.guard;
+//     let mut direction = (0, -1);
+//     let mut visited: HashSet<(i32, i32)> =
+//         HashSet::with_capacity((map.width * map.height) as usize);
 
-    while position.0 >= 0 && position.1 >= 0 && position.0 <= map.width && position.1 <= map.height {
-        visited.insert(position);
+//     while position.0 >= 0 && position.1 >= 0 && position.0 <= map.width && position.1 <= map.height {
+//         visited.insert(position);
 
-        if map.obstructions.contains(&(position.0 + direction.0, position.1 + direction.1))
-    }
-}
+//         if map.obstructions.contains(&(position.0 + direction.0, position.1 + direction.1))
+//     }
+// }
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Hash)]
 enum GuardOrientation {
